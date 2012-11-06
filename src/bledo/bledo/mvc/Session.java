@@ -4,7 +4,7 @@ import bledo.mvc.response.Response;
 import java.util.Map;
 
 public class Session {
-	private final static org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(Session.class);
+	private static final bledo.logger.Logger log = bledo.logger.Logger.getLogger(Session.class);
 	
 	public static Session start(Request req)
 	{
@@ -20,13 +20,13 @@ public class Session {
 		if (sessid == null) {
 			isNew = true;
 			sessid = _gen_sess_id();
-			log.debug("null sessid. generated : {}", sessid);
+			log.debug("null sessid. generated : {0}", sessid);
 		} else if (sessid.isEmpty()) {
 			isNew = true;
 			sessid = _gen_sess_id();
-			log.debug("empty sessid. generated : {}", sessid);
+			log.debug("empty sessid. generated : {0}", sessid);
 		}
-		log.debug("Instantiating sessid : {}", sessid);
+		log.debug("Instantiating sessid : {0}", sessid);
 		return new Session(sessid , store, isNew);
 	}
 	
@@ -51,6 +51,7 @@ public class Session {
 	}
 	
 	public Object get(String key) {
+		hasChanged = true;
 		return _data.get(key);
 	}
 	public String getString(String key) {

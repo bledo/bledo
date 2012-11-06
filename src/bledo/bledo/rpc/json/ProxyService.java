@@ -7,12 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
-
 public class ProxyService
 {
-	final Logger log = LoggerFactory.getLogger(ProxyService.class);
+	private static final bledo.logger.Logger log = bledo.logger.Logger.getLogger(ProxyService.class);
 	
 	protected Object _obj;
 	protected Map<String, Method> methods = new HashMap<String, Method>();
@@ -45,12 +42,12 @@ public class ProxyService
 	
 	public ProxyService(Object obj)
 	{
-		log.info("new ProxyService ... {}", obj);
+		log.info("new ProxyService ... {0}", obj);
 		
 		
 		_obj = obj;
 		Method[] methodsArr = obj.getClass().getMethods();
-		log.debug("found {} methods", methodsArr.length);
+		log.debug("found {0} methods", methodsArr.length);
 		for (Method method : methodsArr)
 		{
 			String methodName = method.getName();
@@ -62,30 +59,30 @@ public class ProxyService
 			
 			int mod = method.getModifiers();
 			if ( ! Modifier.isPublic(mod) ) {
-				log.debug("method {} not public", methodName);
+				log.debug("method {0} not public", methodName);
 				continue;
 			}
 			if ( Modifier.isAbstract(mod) )
 			{
-				log.debug("method {} is abstract", methodName);
+				log.debug("method {0} is abstract", methodName);
 				continue;
 			}
 			if ( Modifier.isStatic(mod) )
 			{
-				log.debug("method {} is static", methodName);
+				log.debug("method {0} is static", methodName);
 				continue;
 			}
 			if ( Modifier.isInterface(mod) )
 			{
-				log.debug("method {} is interface", methodName);
+				log.debug("method {0} is interface", methodName);
 				continue;
 			}
 			if ( Modifier.isNative(mod) )
 			{
-				log.debug("method {} is native", methodName);
+				log.debug("method {0} is native", methodName);
 				continue;
 			}
-			log.info("Found method {}", methodName);
+			log.info("Found method {0}", methodName);
 			methods.put(methodName, method);
 		}
 	}

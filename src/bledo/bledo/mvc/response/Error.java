@@ -9,8 +9,6 @@ import bledo.mvc.Request;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import javax.servlet.http.HttpServletResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -18,7 +16,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Error extends AbstractResponse implements Response
 {
-	public static final Logger log = LoggerFactory.getLogger(Error.class);
+	private static final bledo.logger.Logger log = bledo.logger.Logger.getLogger(Error.class);
 
 	protected Exception e;
 	public Error(Request req , Exception ex)

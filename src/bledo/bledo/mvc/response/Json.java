@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Json extends AbstractResponse
 {
-	final static org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(Json.class);
+	private static final bledo.logger.Logger log = bledo.logger.Logger.getLogger(Json.class);
 
 	JSONObject json;
 	public Json(JSONObject json)

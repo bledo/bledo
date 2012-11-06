@@ -9,12 +9,10 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class VelocityResponse extends AbstractResponse
 {
-	public static final Logger log = LoggerFactory.getLogger(VelocityResponse.class);
+	private static final bledo.logger.Logger log = bledo.logger.Logger.getLogger(VelocityResponse.class);
 	
 	private String layout = null;
 	private String view = null;
@@ -56,7 +54,7 @@ public class VelocityResponse extends AbstractResponse
 			_context.put(_CONTENTTOKEN, sw.toString());
 		}
 		
-		log.info("layout file : {}", layout);
+		log.info("layout file : {0}", layout);
 		Template layoutTpl = getTemplateInstance(layout);
 		PrintWriter pw = resp.getWriter();
 		layoutTpl.merge(_context, pw);
@@ -85,14 +83,11 @@ public class VelocityResponse extends AbstractResponse
 			ve.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
 			ve.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
 			
-			ve.setProperty( RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS, "org.apache.velocity.runtime.log.Log4JLogChute" );
-			ve.setProperty("runtime.log.logsystem.log4j.logger", "VelocitytplParser");
-			
 			ve.init();
 			_init = true;
 		}
 		
-		log.info("getting template {}", tpl);
+		log.info("getting template {0}", tpl);
 		Template template = ve.getTemplate(tpl);
 		return template;
 	}

@@ -12,9 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import bledo.rpc.json.ProxyService.MethodDefinition;
 
 /**
@@ -23,7 +20,7 @@ import bledo.rpc.json.ProxyService.MethodDefinition;
 @WebServlet("/TestJsonRpc")
 public class RpcServlet extends HttpServlet
 {
-	final Logger log = LoggerFactory.getLogger(RpcServlet.class);
+	private static final bledo.logger.Logger log = bledo.logger.Logger.getLogger(RpcServlet.class);
 	private static final long serialVersionUID = 1L;
 	protected ProxyService proxy;
        
@@ -84,7 +81,7 @@ public class RpcServlet extends HttpServlet
 		try {
 			request = new RpcRequest(jsonInput);
 		} catch (RpcException e) {
-			log.error("{}", e);
+			log.error("{0}", e);
 			return new ErrorResponse(-32700, "Parse error");
 		}
 		

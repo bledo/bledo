@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequestWrapper;
  */
 public class HttpRequest extends HttpServletRequestWrapper implements Request
 {
-	private final static org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(HttpRequest.class);
+	private static final bledo.logger.Logger log = bledo.logger.Logger.getLogger(HttpRequest.class);
 
 	protected String action;
 	protected Map<String, Object> _params = new HashMap<String, Object>();
@@ -128,7 +128,7 @@ public class HttpRequest extends HttpServletRequestWrapper implements Request
 			}
 		}
 
-		log.debug("action: {}", action);
+		log.debug("action: {0}", action);
 
 		
 		/*
@@ -173,7 +173,7 @@ public class HttpRequest extends HttpServletRequestWrapper implements Request
 	@Override
 	public String getUri() {
 		
-		String prot = req.getProtocol();
+		String prot = url.getProtocol(); //req.getProtocol();
 		int port = url.getPort();
 		if ( (prot.equals("https") && port == 443) || (prot.equals("http") && port == 80))
 		{

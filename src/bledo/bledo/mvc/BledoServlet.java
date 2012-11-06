@@ -11,13 +11,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 public class BledoServlet extends HttpServlet
 {
-	private static final Logger log = LoggerFactory.getLogger(BledoServlet.class);
+	private final static bledo.logger.Logger log = bledo.logger.Logger.getLogger(BledoServlet.class);
 
 	protected String default_method_name = "index";
 
@@ -58,17 +56,15 @@ public class BledoServlet extends HttpServlet
 			throw new ServletException(e);
 		}
 
-
-
 		// Status
-		log.info("status : {}", response.getStatus());
+		log.info("status : {0}", response.getStatus());
 		servletResponse.setStatus( response.getStatus() );
 		
 		// Headers
 		log.info("sending headers...");
 		for (Map.Entry<String, String> entry : response.getHeaders(request).entrySet())
 		{
-			log.debug("header : {} : {}", entry.getKey(), entry.getValue());
+			log.debug("header : {0} : {1}", entry.getKey(), entry.getValue());
 			servletResponse.setHeader(entry.getKey(), entry.getValue());
 		}
 		//if (request.getPath().equals("/admin")) { servletResponse.sendRedirect("/admin/admin/index"); }
@@ -102,11 +98,18 @@ public class BledoServlet extends HttpServlet
 		try {
 			response.printBody(request, servletResponse);
 		} catch (Exception e) {
-			log.error("{}", e);
+			log.error("{0}", e);
 			throw new ServletException(e);
 		}
 	}
 
+	/**
+	 * Override this method to pre/post process requests
+	 * 
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
 	protected Response processRequest(Request request) throws Exception
 	{
 		String action = request.getAction();
@@ -118,17 +121,17 @@ public class BledoServlet extends HttpServlet
 			//
 			Method method = actionMap.get( action );
 			if (method == null) {
-				log.warn("page not found : {}", action );
+				log.warn("page not found : {0}", action );
 				throw new HttpError404();
 			}
 			
-			log.info("Invoking {}", action);
+			log.info("Invoking {0}", action);
 			response = (Response) method.invoke(this, new Object[]{request});
 			
 		}
 		catch (Exception ex)
 		{
-			log.error("{}", ex);
+			log.error("{0}", ex);
 			throw new ServletException(ex);
 		}
 		
@@ -150,11 +153,11 @@ public class BledoServlet extends HttpServlet
 
 		actionMap = new HashMap<String, Method>();
 
-		log.info("Initializing Servlet {}", this);
+		log.info("Initializing Servlet {0}", this);
 		for (Method method : this.getClass().getMethods())
 		{
 			String actionName = method.getName();
-			log.debug("\tfound method {}", actionName);
+			log.debug("\tfound method {0}", actionName);
 
 			// check visibility
 			int mod = method.getModifiers();
@@ -175,7 +178,7 @@ public class BledoServlet extends HttpServlet
 			if ( method.getReturnType().isInstance(Response.class) || method.getReturnType().equals(Response.class))
 			{
 				// Add to method map
-				log.info("\tadded action: {}", actionName);
+				log.info("\tadded action: {0}", actionName);
 				actionMap.put(actionName, method);
 			}
 		}

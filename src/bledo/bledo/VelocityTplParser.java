@@ -6,13 +6,11 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 public class VelocityTplParser implements TplParser
 {
-	public static final Logger log = LoggerFactory.getLogger(VelocityTplParser.class);
+	private final static bledo.logger.Logger log = bledo.logger.Logger.getLogger(VelocityTplParser.class);
 	
 	private VelocityContext _context = new VelocityContext();
 
@@ -77,9 +75,7 @@ public class VelocityTplParser implements TplParser
 			veCp = new VelocityEngine();
 			veCp.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
 			veCp.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
-			
-			veCp.setProperty( RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS, "org.apache.velocity.runtime.log.Log4JLogChute" );
-			veCp.setProperty("runtime.log.logsystem.log4j.logger", "VelocityTplParser");
+
 			/*
 			 * veCp.setProperty("runtime.log.error.stacktrace", true);
 			 * veCp.setProperty("runtime.log.info.stacktrace", true);

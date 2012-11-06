@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 public class SessionStoreFile implements SessionStore
 {
-	private final static org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(SessionStoreFile.class);
+	private final static bledo.logger.Logger log = bledo.logger.Logger.getLogger(SessionStoreFile.class);
 	
 	public static SessionStoreFile getInst()
 	{
@@ -22,17 +22,17 @@ public class SessionStoreFile implements SessionStore
 		boolean dirExists = true;
 		
 		if ( !file.exists() ) {
-			log.warn("directory {} does not exists. will attempt to create", dir);
+			log.warn("directory {0} does not exists. will attempt to create", dir);
 			if ( !file.mkdir() ) {
-				log.error("could not create directory {}", dir);
+				log.error("could not create directory {0}", dir);
 				dirExists = false;
 			}
-			log.warn("create session directory {}", dir);
+			log.warn("create session directory {0}", dir);
 		} else if (!file.isDirectory()) {
-			log.warn("file {} already exists and it is not a directory", dir);
+			log.warn("file {0} already exists and it is not a directory", dir);
 			dirExists = false;
 		} else if (!file.canRead()) {
-			log.error("not enough permission to read session from directory {}", dir);
+			log.error("not enough permission to read session from directory {0}", dir);
 			dirExists = false;
 		}
 		
@@ -63,17 +63,19 @@ public class SessionStoreFile implements SessionStore
 		
 		FileInputStream fis = null;
 		ObjectInputStream ois = null;
+		File sessFile = new File(_tmp + File.separator + sessid);
 		try {
-			log.debug("reading session from {}{}{}", new Object[]{_tmp, File.separator, sessid});
-			fis = new FileInputStream(_tmp + File.separator + sessid);
+			log.debug("reading session from {0}{1}{2}", new Object[]{_tmp, File.separator, sessid});
+			fis = new FileInputStream(sessFile);
 			ois = new ObjectInputStream(fis);
 			return (HashMap<String, Object>) ois.readObject();
 		} catch (FileNotFoundException e) {
-			log.error("{}", e);
+			log.info("session file not found.  returning empty session.");
+			return  new HashMap<String, Object>();
 		} catch (IOException e) {
-			log.error("{}", e);
+			log.error("{0}", e);
 		} catch (ClassNotFoundException e) {
-			log.error("{}", e);
+			log.error("{0}", e);
 		} finally {
 			if (fis != null) { try { fis.close(); } catch (IOException e) { } }
 			if (ois != null) { try { ois.close(); } catch (IOException e) { } }
@@ -93,14 +95,14 @@ public class SessionStoreFile implements SessionStore
 		ObjectOutputStream oos = null;
 		
 		try {
-			log.debug("writing session to {}{}{}", new Object[]{_tmp,File.separator,sessid});
+			log.debug("writing session to {0}{1}{2}", new Object[]{_tmp,File.separator,sessid});
 			fos = new FileOutputStream(_tmp + File.separator + sessid);
 			oos = new ObjectOutputStream(fos);
 			oos.writeObject(data);
 		} catch (FileNotFoundException e) {
-			log.error("{}", e);
+			log.error("{0}", e);
 		} catch (IOException e) {
-			log.error("{}", e);
+			log.error("{0}", e);
 		} finally {
 			if (fos != null) { try { fos.close(); } catch (IOException e) { } }
 			if (oos != null) { try { oos.close(); } catch (IOException e) { } }
