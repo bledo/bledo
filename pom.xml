@@ -48,4 +48,31 @@
       <scope>provided</scope>
     </dependency>
   </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.5.1</version>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <distributionManagement>
+    <repository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>repo</id>
+      <url>https://github.com/bledo/maven2/raw/master/releases</url>
+      <layout>default</layout>
+    </repository>
+    <snapshotRepository>
+    	<uniqueVersion>true</uniqueVersion>
+	<id>repo-snapshots</id>
+	<url>https://github.com/bledo/maven2/raw/master/snapshots</url>
+	<layout>legacy</layout>
+    </snapshotRepository>
+  </distributionManagement>
 </project>
