@@ -12,5 +12,6 @@ fi
 
 rp=`readlink -f $p`
 
-echo mvn deploy -DaltDeploymentRepository=mine::default::file://$rp
+cmd="mvn deploy -DaltDeploymentRepository=mine::default::file://$rp"
+$cmd
 
