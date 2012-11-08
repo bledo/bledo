@@ -6,7 +6,7 @@ if [ "$p" = "" ]
 then
 	echo ""
 	echo "Path to cloned copy of https://github.com/bledo/maven2"
-	echo ""
+	echo "$0 ../path/to/dir"
 	exit
 fi
 

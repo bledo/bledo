@@ -162,6 +162,7 @@ public final class Logger {
 	
 	public void error(String message, Object...args) { _log(Level.ERROR, message, args); }
 	public void error(String message, Exception e) { _loge(Level.ERROR, message, e); } 
+	public void error(Exception e) { _loge(Level.ERROR, "{0}", e); } 
 }
 
 
