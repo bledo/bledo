@@ -41,7 +41,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 /**
@@ -265,12 +264,12 @@ public class FakeRequest implements Request
 	}
 
 	@Override
-	public HttpSession getSession(boolean bln) {
+	public Session getSession(boolean bln) {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
 	@Override
-	public HttpSession getSession() {
+	public Session getSession() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -493,5 +492,5 @@ public class FakeRequest implements Request
 	public DispatcherType getDispatcherType() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
-	
+
 }

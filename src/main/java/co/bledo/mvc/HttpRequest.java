@@ -215,6 +215,20 @@ public class HttpRequest extends HttpServletRequestWrapper implements Request
 		}
 		return ret;
 	}
+
+
+	@Override
+	public Session getSession()
+	{
+		return new Session(super.getSession());
+	}
+
+	@Override
+	public Session getSession(boolean create)
+	{
+		return new Session(super.getSession(create));
+	}
+
 }
 
 

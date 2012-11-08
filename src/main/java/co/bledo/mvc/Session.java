@@ -1,4 +1,5 @@
 package co.bledo.mvc;
+
 /*
  *
  * Copyright 2012 The ClickPro.com LLC
@@ -18,95 +19,130 @@ package co.bledo.mvc;
  *
 */
 
+import java.util.Enumeration;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionContext;
 
-import co.bledo.mvc.response.Response;
-import java.util.Map;
-
-public class Session {
+public class Session implements HttpSession
+{
 	private static final co.bledo.logger.Logger log = co.bledo.logger.Logger.getLogger(Session.class);
-	
-	public static Session start(Request req)
-	{
-		return start(req, SessionStoreFile.getInst());
-	}
-	
-	public static Session start(Request req, SessionStore store)
-	{
-		log.info("session.start");
-		boolean isNew = false;
-		String sessid = req.getCookie("BSID");
-		
-		if (sessid == null) {
-			isNew = true;
-			sessid = _gen_sess_id();
-			log.debug("null sessid. generated : {0}", sessid);
-		} else if (sessid.isEmpty()) {
-			isNew = true;
-			sessid = _gen_sess_id();
-			log.debug("empty sessid. generated : {0}", sessid);
-		}
-		log.debug("Instantiating sessid : {0}", sessid);
-		return new Session(sessid , store, isNew);
-	}
-	
-	private static String _gen_sess_id()
-	{
-		return java.util.UUID.randomUUID().toString();
-	}
-	
-	
-	private String sessid;
-	private boolean isNew;
-	private boolean hasChanged = false;
-	private SessionStore store;
-	private Map<String, Object> _data;
-	
-	private Session(String id, SessionStore store, boolean isNew)
-	{
-		this.sessid = id;
-		this.isNew = isNew;
-		this.store = store;
-		_data = store.read(sessid);
-	}
-	
+	private HttpSession sess;
+
 	public Object get(String key) {
-		hasChanged = true;
-		return _data.get(key);
+		return sess.getAttribute(key);
 	}
+
+	public Object get(String key, Object def) {
+		Object ret =  sess.getAttribute(key);
+		if (ret == null) {
+			return def;
+		}
+		return ret;
+	}
+
 	public String getString(String key) {
-		return (String) get(key);
+		return (String) sess.getAttribute(key);
 	}
+
+	public String getString(String key, String def) {
+		return (String) get(key, def);
+	}
+
 	public void put(String key, Object val) {
-		hasChanged = true;
-		_data.put(key, val);
+		sess.setAttribute(key, val);
 	}
-	
-	
-	public void stop(Request req, Response resp)
+
+	public Session(HttpSession sess)
 	{
-		if (isNew) {
-			Cookie c = new Cookie("BSID", sessid);
-			resp.getCookies(req).add(c);
-		}
-		
-		if (hasChanged)
-		{
-			store.write(sessid, _data);
-		}
+		this.sess = sess;
 	}
-	
-	public boolean isNew()
-	{
-		return isNew;
+
+	@Override
+	public long getCreationTime() {
+		return sess.getCreationTime();
 	}
-	
-	public void destroy()
-	{
-		store.destroy(sessid);
+
+	@Override
+	public String getId() {
+		return sess.getId();
+	}
+
+	@Override
+	public long getLastAccessedTime() {
+		return sess.getLastAccessedTime();
+	}
+
+	@Override
+	public ServletContext getServletContext() {
+		return sess.getServletContext();
+	}
+
+	@Override
+	public void setMaxInactiveInterval(int interval) {
+		sess.setMaxInactiveInterval(interval);
+	}
+
+	@Override
+	public int getMaxInactiveInterval() {
+		return sess.getMaxInactiveInterval();
+	}
+
+	@Override
+	public HttpSessionContext getSessionContext() {
+		return sess.getSessionContext();
+	}
+
+	@Override
+	public Object getAttribute(String name) {
+		return sess.getAttribute(name);
+	}
+
+	@Override
+	public Object getValue(String name) {
+		return sess.getValue(name);
+	}
+
+	@Override
+	public Enumeration<String> getAttributeNames() {
+		return sess.getAttributeNames();
+	}
+
+	@Override
+	public String[] getValueNames() {
+		return sess.getValueNames();
+	}
+
+	@Override
+	public void setAttribute(String name, Object value) {
+		sess.setAttribute(name, value);
+	}
+
+	@Override
+	public void putValue(String name, Object value) {
+		sess.putValue(name, value);
+	}
+
+	@Override
+	public void removeAttribute(String name) {
+		sess.removeAttribute(name);
+	}
+
+	@Override
+	public void removeValue(String name) {
+		sess.removeValue(name);
+	}
+
+	@Override
+	public void invalidate() {
+		sess.invalidate();
+	}
+
+	@Override
+	public boolean isNew() {
+		return sess.isNew();
 	}
 }
-
-
 
 
 

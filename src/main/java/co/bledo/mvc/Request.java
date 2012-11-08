@@ -47,6 +47,10 @@ public interface Request extends HttpServletRequest
 	public String getScheme();
 	public String getHost();
 	public int getPort();
+	@Override
+	public Session getSession();
+	@Override
+	public Session getSession(boolean create);
 }
 
 
