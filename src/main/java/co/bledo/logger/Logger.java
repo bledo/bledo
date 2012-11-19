@@ -138,12 +138,16 @@ public final class Logger {
 		if ( Level.loggable(_level, level) )
 		{
 			final String NL = System.getProperty("line.separator");
-			StringBuilder sb = new StringBuilder(e.getMessage());
-			sb.append(NL);
-			for (StackTraceElement element : e.getStackTrace() ){
-				sb.append("\t");
-				sb.append( element );
-				sb.append( NL );
+			StringBuilder sb = new StringBuilder();
+			if (e != null) {
+				sb.append(e.getMessage());
+
+				sb.append(NL);
+				for (StackTraceElement element : e.getStackTrace() ){
+					sb.append("\t");
+					sb.append( element );
+					sb.append( NL );
+				}
 			}
 
 			_log(level, message, new Object[]{sb.toString()});
