@@ -19,13 +19,12 @@ package co.bledo.logger;
 */
 
 
+import co.bledo.BledoProperties;
 import java.lang.reflect.Method;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-
-import co.bledo.BledoProperties;
 
 
 public final class Logger {

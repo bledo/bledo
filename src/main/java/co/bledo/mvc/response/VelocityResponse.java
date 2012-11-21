@@ -60,6 +60,11 @@ public class VelocityResponse extends AbstractResponse
 	{
 		_context.put(key, obj);
 	}
+
+	public boolean isAssignedKey(String key)
+	{
+		return _context.containsKey(key);
+	}
 	
 	
 	@Override
