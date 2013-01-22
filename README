@@ -1,0 +1,17 @@
+Installation via Maven:
+
+
+- Add repository:
+
+	<repository>
+	    <id>bledo</id>
+	    <url>https://github.com/bledo/maven2/raw/master/snapshots</url>
+	</repository>
+
+- Add dependency:
+
+	<dependency>
+	    <groupId>co.bledo</groupId>
+	    <artifactId>bledo</artifactId>
+	    <version>1.0-SNAPSHOT</version>
+	</dependency>
