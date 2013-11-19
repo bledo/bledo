@@ -19,11 +19,12 @@ package co.bledo.mvc.response;
 */
 
 
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
+
 import co.bledo.mvc.HttpError404;
 import co.bledo.mvc.Request;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -31,8 +32,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class Error extends AbstractResponse implements Response
 {
-	private static final co.bledo.logger.Logger log = co.bledo.logger.Logger.getLogger(Error.class);
-
+	private static org.apache.logging.log4j.Logger log = org.apache.logging.log4j.LogManager.getLogger(Error.class);
+	
 	protected Exception e;
 	public Error(Request req , Exception ex)
 	{

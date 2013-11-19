@@ -40,8 +40,6 @@ public interface Request extends HttpServletRequest
 	public Map<String, Object> getParamMap();
 	public String getParam(String k);
 	public String getParam(String k, String def_val);
-	public String getCookie(String k);
-	public String getCookie(String k, String def_val);
 
 	@Override
 	public String getScheme();

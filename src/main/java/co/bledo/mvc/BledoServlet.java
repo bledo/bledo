@@ -20,22 +20,25 @@ package co.bledo.mvc;
 
 
 import co.bledo.mvc.response.Response;
+
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 public class BledoServlet extends HttpServlet
 {
-	private final static co.bledo.logger.Logger log = co.bledo.logger.Logger.getLogger(BledoServlet.class);
+	private static final long serialVersionUID = -3653296943752019368L;
 
+	private static org.apache.logging.log4j.Logger log = org.apache.logging.log4j.LogManager.getLogger(BledoServlet.class);
+	
 	protected String default_method_name = "index";
 
 	private Map<String, Method> actionMap = null;

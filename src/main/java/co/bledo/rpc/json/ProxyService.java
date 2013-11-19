@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class ProxyService
 {
-	private static final co.bledo.logger.Logger log = co.bledo.logger.Logger.getLogger(ProxyService.class);
+	private static org.apache.logging.log4j.Logger log = org.apache.logging.log4j.LogManager.getLogger(ProxyService.class);
 	
 	protected Object _obj;
 	protected Map<String, Method> methods = new HashMap<String, Method>();

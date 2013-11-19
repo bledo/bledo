@@ -35,7 +35,8 @@ import org.apache.commons.io.IOUtils;
 @WebServlet("/TestJsonRpc")
 public class RpcServlet extends HttpServlet
 {
-	private static final co.bledo.logger.Logger log = co.bledo.logger.Logger.getLogger(RpcServlet.class);
+	private static org.apache.logging.log4j.Logger log = org.apache.logging.log4j.LogManager.getLogger(RpcServlet.class);
+	
 	private static final long serialVersionUID = 1L;
 	protected ProxyService proxy;
        

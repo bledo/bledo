@@ -26,7 +26,6 @@ import javax.servlet.http.HttpSessionContext;
 
 public class Session implements HttpSession
 {
-	private static final co.bledo.logger.Logger log = co.bledo.logger.Logger.getLogger(Session.class);
 	private HttpSession sess;
 
 	public Object get(String key) {

@@ -31,7 +31,7 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 
 public class VelocityResponse extends AbstractResponse
 {
-	private static final co.bledo.logger.Logger log = co.bledo.logger.Logger.getLogger(VelocityResponse.class);
+	private static org.apache.logging.log4j.Logger log = org.apache.logging.log4j.LogManager.getLogger(VelocityResponse.class);
 	
 	private String layout = null;
 	private String view = null;

@@ -19,11 +19,8 @@ package co.bledo.mvc.response;
 */
 
 
-import java.io.OutputStream;
 import java.io.PrintWriter;
-
 import org.json.JSONObject;
-
 import co.bledo.mvc.Request;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
@@ -31,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Json extends AbstractResponse
 {
-	private static final co.bledo.logger.Logger log = co.bledo.logger.Logger.getLogger(Json.class);
+	private static org.apache.logging.log4j.Logger log = org.apache.logging.log4j.LogManager.getLogger(Json.class);
 
 	JSONObject json;
 	public Json(JSONObject json)

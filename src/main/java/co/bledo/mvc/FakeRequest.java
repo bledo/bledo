@@ -55,7 +55,6 @@ public class FakeRequest implements Request
 	protected String servletPath;
 	protected String action;
 	protected Map<String, Object> _params = new HashMap<String, Object>();
-	protected Map<String, String> _cookies = new HashMap<String, String>();
 
 	public FakeRequest(String url, String contextPath, String servletPath, String defAction) throws MalformedURLException
 	{
@@ -137,20 +136,6 @@ public class FakeRequest implements Request
 
 	public void setParam(String k, String val) {
 		_params.put(k, val);
-	}
-
-	@Override
-	public String getCookie(String k) {
-		return getCookie(k, null);
-	}
-
-	@Override
-	public String getCookie(String k, String def_val) {
-		String val =  (String) _cookies.get(k);
-		if (val == null) {
-			val = def_val;
-		}
-		return val;
 	}
 
 	@Override

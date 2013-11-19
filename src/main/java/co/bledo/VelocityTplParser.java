@@ -29,7 +29,7 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 
 public class VelocityTplParser implements TplParser
 {
-	private final static co.bledo.logger.Logger log = co.bledo.logger.Logger.getLogger(VelocityTplParser.class);
+	private static org.apache.logging.log4j.Logger log = org.apache.logging.log4j.LogManager.getLogger(VelocityTplParser.class);
 	
 	private VelocityContext _context = new VelocityContext();
 

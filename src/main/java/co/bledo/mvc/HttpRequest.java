@@ -33,11 +33,8 @@ import javax.servlet.http.HttpServletRequestWrapper;
  */
 public class HttpRequest extends HttpServletRequestWrapper implements Request
 {
-	private static final co.bledo.logger.Logger log = co.bledo.logger.Logger.getLogger(HttpRequest.class);
-
 	protected String action;
 	protected Map<String, Object> _params = new HashMap<String, Object>();
-	protected Map<String, String> _cookies = new HashMap<String, String>();
 	
 	protected URL url;
 	protected HttpServletRequest req;
@@ -60,18 +57,19 @@ public class HttpRequest extends HttpServletRequestWrapper implements Request
 		//
 		this.req = req;
 		
-		//
-		_params.putAll(req.getParameterMap());
-
-		//
+		// add cookies to parameters
 		javax.servlet.http.Cookie[] cookies = req.getCookies();
 		if (cookies!=null)
 		{
 			for (javax.servlet.http.Cookie c: req.getCookies())
 			{
-				_cookies.put(c.getName(), c.getValue());
+				_params.put(c.getName(), c.getValue());
 			}
 		}
+		
+		// add all parameters
+		_params.putAll(req.getParameterMap());
+
 
 		//
 		_init();
@@ -143,8 +141,6 @@ public class HttpRequest extends HttpServletRequestWrapper implements Request
 			}
 		}
 
-		log.debug("action: {0}", action);
-
 		
 		/*
 		 * parameters
@@ -201,21 +197,6 @@ public class HttpRequest extends HttpServletRequestWrapper implements Request
 			return prot+"://"+req.getServerName() + ":" + port + req.getRequestURI();
 		}
 	}
-
-	@Override
-	public String getCookie(String k) {
-		return this.getCookie(k, null);
-	}
-
-	@Override
-	public String getCookie(String k, String def_val) {
-		String ret =  _cookies.get(k);
-		if (ret == null) {
-			return def_val;
-		}
-		return ret;
-	}
-
 
 	@Override
 	public Session getSession()
