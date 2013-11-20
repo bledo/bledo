@@ -36,6 +36,13 @@ public class VelocityResponse extends AbstractResponse
 	private String layout = null;
 	private String view = null;
 	protected String _CONTENTTOKEN = "content";
+	
+	/**
+	 * 
+	 */
+	public VelocityResponse()
+	{
+	}
 
 	/**
 	 * Constructor takes a layout file and view file
@@ -51,8 +58,19 @@ public class VelocityResponse extends AbstractResponse
 	}
 	
 	public String getLayout() { return layout; }
+	
+	/**
+	 * 
+	 * @param layout e.g: co/bledo/template.vm
+	 */
 	public void setLayout(String layout) { this.layout = layout; }
+	
 	public String getView() { return view; }
+	
+	/**
+	 * 
+	 * @param view e.g: co/bledo/index.vm
+	 */
 	public void setView(String view) { this.view = view; }
 	
 	private VelocityContext _context = new VelocityContext();
